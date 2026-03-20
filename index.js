@@ -27,3 +27,47 @@ function filterItems(searchTerm) {
         return item.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1;
     });
 }
+
+// Task 3: Update the <ul> on the page with a given array of items
+function renderList(items) {
+    var ul = document.getElementById("shoppingListDisplay");
+    ul.innerHTML = "";
+    for (var i = 0; i < items.length; i++) {
+        var li = document.createElement("li");
+        li.textContent = items[i];
+        ul.appendChild(li);
+    }
+}
+
+// Task 3: Called when "Add Item" button is clicked
+function handleAdd() {
+    var input = document.getElementById("itemInput");
+    var item = input.value.trim();
+
+    if (!item) {
+        return;
+    }
+
+    addItem(item);
+    input.value = "";
+    displayList();
+    renderList(shoppingList);
+}
+
+// Task 3: Called when "Remove Last Item" button is clicked
+function handleRemove() {
+    removeLastItem();
+    displayList();
+    renderList(shoppingList);
+}
+
+// Task 3: Called when the user types in the filter input
+function handleFilter() {
+    var searchTerm = document.getElementById("filterInput").value;
+
+    if (searchTerm) {
+        renderList(filterItems(searchTerm));
+    } else {
+        renderList(shoppingList);
+    }
+}
